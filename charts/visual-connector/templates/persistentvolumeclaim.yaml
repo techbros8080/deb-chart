@@ -1,0 +1,13 @@
+{{- if .Values.dbzVisualConnectorBe.volumes }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "visual-connector.name" . }}-be-persistentvolumeclaim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+{{- end }}

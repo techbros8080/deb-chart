@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "visual-connector.fullname" . }}
+  labels:
+    app: {{ template "visual-connector.name" . }}
+    chart: {{ template "visual-connector.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: {{ template "visual-connector.name" . }}-http
+      port: {{ .Values.serviceHttpPort }}
+      targetPort: {{ .Values.httpPort }}
+  type: LoadBalancer
+  selector:
+    app: {{ template "visual-connector.name" . }}
+    release: {{ .Release.Name }}
