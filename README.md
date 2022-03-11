@@ -17,25 +17,25 @@ This chart bootstraps a cluster of Zookeeper - Kafka - Kafka Connect - VisualCon
 ### Install along with helm-charts
 
 ```console
-git clone https://github.com/techbros/debezium-charts.git
-helm install debezium-charts
+git clone https://github.com/techbros8080/deb-chart.git
+helm install deb-chart
 ```
 
 To install with a specific name, you can do:
 ```console
-helm install --name my_debezium debezium-charts
+helm install --name my_debezium deb-chart
 ```
 
 ### Install with a existing zookeeper
 
 ```console
-helm install --set zookeeper.enabled=false,zookeeper.url="zooKeeper:2181" debezium-charts
+helm install --set zookeeper.enabled=false,zookeeper.url="zooKeeper:2181" deb-chart
 ```
 
 ### Install with a existing kafka
 
 ```console
-helm install --set zookeeper.enabled=false,kafka.enabled=false,kafka.bootstrapServers="PLAINTEXT://mykafka0:9092,PLAINTEXT://mykafka1:9092,PLAINTEXT://mykafka2:9092" debezium-charts
+helm install --set zookeeper.enabled=false,kafka.enabled=false,kafka.bootstrapServers="PLAINTEXT://mykafka0:9092,PLAINTEXT://mykafka1:9092,PLAINTEXT://mykafka2:9092" deb-chart
 ```
 
 There are
