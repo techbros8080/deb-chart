@@ -3,7 +3,7 @@
 ## ------------------------------------------------------
 zookeeper:
   enabled: true
-  servers: 1
+  servers: 2
   image: confluentinc/cp-zookeeper
   imageTag: 6.1.0
   heapOptions: "-Xms512M -Xmx512M"
@@ -32,7 +32,7 @@ kafka:
   prometheus:
     jmx:
       enabled: false
-  brokers: 2
+  brokers: 3
   image: confluentinc/cp-enterprise-kafka
   imageTag: 6.1.0
   imagePullSecrets:
@@ -45,15 +45,15 @@ kafka:
     enabled: true
     size: 1Gi
     disksPerBroker: 1
-  resources:
+  resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
   ## and remove the curly braces after 'resources:'
-    limits:
-      cpu: 300m
-      memory: 1024Mi
-    requests:
-      cpu: 300m
-      memory: 1024Mi
+#    limits:
+#      cpu: 300m
+#      memory: 1024Mi
+#    requests:
+#      cpu: 300m
+#      memory: 1024Mi
   securityContext: 
     runAsUser: 0
 
@@ -70,18 +70,18 @@ kafka-connect:
   image: techbros8080/dbz-kafka-connect
   imageTag: 1.7
   configurationOverrides:
-    "config.storage.replication.factor": "1"
-    "offset.storage.replication.factor": "1"
-    "status.storage.replication.factor": "1"
-  resources:
+    "config.storage.replication.factor": "2"
+    "offset.storage.replication.factor": "2"
+    "status.storage.replication.factor": "2"
+  resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
   ## and remove the curly braces after 'resources:'
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 500m
-      memory: 1024Mi
+#    limits:
+#      cpu: 500m
+#      memory: 1024Mi
+#    requests:
+#      cpu: 500m
+#      memory: 1024Mi
   securityContext: 
     runAsUser: 0
 
@@ -93,7 +93,7 @@ visual-connector:
   replicaCount: 1
   image: techbros8080/dbz-nginx
   imageTag: 1.7
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
   httpPort: 80
   serviceHttpPort: 8084
   ## Visual Connector
@@ -115,12 +115,12 @@ visual-connector:
       - name: storage
         persistentVolumeClaim:
           claimName: visual-connector-be-persistentvolumeclaim
-  resources: 
+  resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
   ## and remove the curly braces after 'resources:'
-    limits:
-      cpu: 300m
-      memory: 256Mi
-    requests:
-      cpu: 300m
-      memory: 256Mi
+#    limits:
+#      cpu: 300m
+#      memory: 256Mi
+#    requests:
+#      cpu: 300m
+#      memory: 256Mi

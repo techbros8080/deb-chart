@@ -28,3 +28,32 @@ dbzVisualConnectorBe:
     - name: storage
       persistentVolumeClaim:
         claimName: visual-connector-be-persistentvolumeclaim
+
+
+## ------------------------------------------------------
+## Kafka Connect
+## ------------------------------------------------------
+kafka-connect:
+  enabled: true
+  prometheus:
+    jmx:
+      enabled: false
+  replicaCount: 2
+  heapOptions: "-Xms512M -Xmx512M"
+  image: techbros8080/dbz-kafka-connect
+  imageTag: 1.7
+  configurationOverrides:
+    "config.storage.replication.factor": "2"
+    "offset.storage.replication.factor": "2"
+    "status.storage.replication.factor": "2"
+  resources: {}
+  ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
+  ## and remove the curly braces after 'resources:'
+#    limits:
+#      cpu: 500m
+#      memory: 1024Mi
+#    requests:
+#      cpu: 500m
+#      memory: 1024Mi
+  securityContext: 
+    runAsUser: 0

@@ -37,6 +37,13 @@ spec:
         - name: {{ template "visual-connector.name" . }}-be
           image: "{{ .Values.dbzVisualConnectorBe.image }}:{{ .Values.dbzVisualConnectorBe.imageTag }}"
           imagePullPolicy: "{{ .Values.dbzVisualConnectorBe.imagePullPolicy }}"
+          env:
+          - name: KAFKA_CONNECT_SERVER
+            value: "{{ template "visual-connector.kafka-connect.server" . }}"
+          - name: KAFKA_CONNECT_PORT
+            value: "{{ template "visual-connector.kafka-connect.servicePort" . }}"
+          - name: KAFKA_CONNECT_DEFAULT_NAME
+            value: "{{ template "visual-connector.kafka-connect.server" . }}"
           ports:
           - containerPort: {{ .Values.dbzVisualConnectorBe.port}}
           {{- if .Values.dbzVisualConnectorBe.volumeMounts }}

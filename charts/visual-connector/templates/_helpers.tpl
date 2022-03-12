@@ -25,6 +25,30 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/*
+Create a default fully qualified kafka headless name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "visual-connector.kafka-connect.server.fullname" -}}
+{{- $name := "kafka-connect" -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Form the Kafka URL. If Kafka is installed as part of this chart, use k8s service discovery,
+else use user-provided URL
+*/}}
+{{- define "visual-connector.kafka-connect.server" -}}
+{{- printf "%s" (include "visual-connector.kafka-connect.server.fullname" .) -}}
+{{- end -}}
+
+{{- define "visual-connector.kafka-connect.servicePort" }}
+{{- $servicePort := default 8083 (index .Values "kafka-connect" "servicePort") | int -}}
+{{- printf "%d" $servicePort }}
+{{- end -}}
+
+
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "visual-connector.chart" -}}

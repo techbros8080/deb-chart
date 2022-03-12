@@ -22,8 +22,9 @@ helm install deb-chart
 ```
 
 To install with a specific name, you can do:
+
 ```console
-helm install --name my_debezium deb-chart
+helm install mydebezium deb-chart
 ```
 
 ### Install with a existing zookeeper
